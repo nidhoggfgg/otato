@@ -13,10 +13,10 @@ import { LAppPal } from './lapppal';
 import { LAppTextureManager } from './lapptexturemanager';
 import { LAppView } from './lappview';
 
-export let canvas: HTMLCanvasElement | null = null;
-export let s_instance: LAppDelegate | null = null;
-export let gl: WebGLRenderingContext | null = null;
-export let frameBuffer: WebGLFramebuffer | null = null;
+export let canvas: HTMLCanvasElement = null;
+export let s_instance: LAppDelegate = null;
+export let gl: WebGLRenderingContext = null;
+export let frameBuffer: WebGLFramebuffer = null;
 
 /**
  * アプリケーションクラス。
