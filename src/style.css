@@ -1,0 +1,161 @@
+body {
+  min-height: 100%;
+  margin:0;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(146deg, rgba(45, 68, 126, 0.2) 0%, rgba(181, 176, 160, 0.2) 28%, rgba(204, 115, 115, 0.2) 57%, rgba(81, 49, 157, 0.3) 89%);
+}
+
+h1 {
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  font-size:48px;
+}
+
+p {
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size:14px;
+  color: #333333;
+}
+
+header {
+  text-align:center;
+  color:white;
+  display: flex;
+}
+
+.inner-header {
+  height: 45vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height:15vh;
+  margin-bottom:-7px; /*Fix for safari gap*/
+  min-height:100px;
+  max-height:150px;
+}
+
+/* Animation */
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% {
+    transform: translate3d(85px,0,0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+  flex-grow: 1;
+}
+
+div.card {
+  border: 1px solid rgba(255,255,255,0.3);
+  border-top: 2px solid rgba(255,255,255,0.4);
+  padding: 1em;
+  padding-top: 0.3em;
+  margin: 2em;
+  border-radius: 1em;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: rgba(38, 57, 77, 0.7) 0px 20px 30px -10px;
+}
+
+.card > .name {
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 0px;
+  margin: 0.5em 0em;
+}
+
+.card > img {
+  width: 400px;
+  height: 400px;
+}
+
+/* waifu */
+#waifu {
+	bottom: 0px;
+  background:rgba(0, 0, 0, 0);
+	left: 0;
+	line-height: 0;
+	margin-bottom: -10px;
+	position: fixed;
+	transform: translateY(3px);
+	transition: transform .3s ease-in-out, bottom 3s ease-in-out;
+	z-index: 1;
+}
+
+#waifu:hover {
+	transform: translateY(0);
+}
+
+#waifu-tips {
+	animation: shake 50s ease-in-out 5s infinite;
+	background-color: rgba(236, 217, 188, .5);
+	border: 1px solid rgba(224, 186, 140, .62);
+	border-radius: 12px;
+	box-shadow: 0 3px 15px 2px rgba(191, 158, 118, .2);
+	font-size: 14px;
+	line-height: 24px;
+	margin: -30px 20px;
+	min-height: 70px;
+	opacity: 0;
+	overflow: hidden;
+	padding: 5px 10px;
+	position: absolute;
+	text-overflow: ellipsis;
+	transition: opacity 1s;
+	width: 250px;
+	word-break: break-all;
+}
+
+#live2d {
+	cursor: grab;
+	height: 300px;
+	position: relative;
+	width: 300px;
+}
+
+#live2d:active {
+	cursor: grabbing;
+}
