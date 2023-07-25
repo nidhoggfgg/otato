@@ -2,56 +2,6 @@
 	"Version": 3,
 	"Parameters": [
 		{
-			"Id": "Param42",
-			"GroupId": "",
-			"Name": "黑"
-		},
-		{
-			"Id": "Param43",
-			"GroupId": "",
-			"Name": "脸红"
-		},
-		{
-			"Id": "Param54",
-			"GroupId": "",
-			"Name": "生气"
-		},
-		{
-			"Id": "Param44",
-			"GroupId": "",
-			"Name": "星星"
-		},
-		{
-			"Id": "Param55",
-			"GroupId": "",
-			"Name": "泪"
-		},
-		{
-			"Id": "Param56",
-			"GroupId": "",
-			"Name": "姿势1"
-		},
-		{
-			"Id": "Param57",
-			"GroupId": "",
-			"Name": "姿势2"
-		},
-		{
-			"Id": "Param58",
-			"GroupId": "",
-			"Name": "姿势3"
-		},
-		{
-			"Id": "Param59",
-			"GroupId": "",
-			"Name": "发光"
-		},
-		{
-			"Id": "Param60",
-			"GroupId": "",
-			"Name": "叶子"
-		},
-		{
 			"Id": "Param61",
 			"GroupId": "",
 			"Name": "参数195"
