@@ -53,8 +53,12 @@ export class LAppDelegate {
    */
   public initialize(): boolean {
     canvas = <HTMLCanvasElement>document.getElementById("live2d");
-    canvas.width = canvas.width;
-    canvas.height = canvas.height;
+    if (LAppDefine.CanvasSize === 'auto') {
+      this._resizeCanvas();
+    } else {
+      canvas.width = LAppDefine.CanvasSize.width;
+      canvas.height = LAppDefine.CanvasSize.height;
+    }
 
     // glコンテキストを初期化
     // @ts-ignore

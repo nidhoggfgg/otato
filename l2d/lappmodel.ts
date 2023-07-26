@@ -5,7 +5,7 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import 'whatwg-fetch';
+// import 'whatwg-fetch';
 
 import { CubismDefaultParameterId } from './l2d-framework/cubismdefaultparameterid';
 import { CubismModelSettingJson } from './l2d-framework/cubismmodelsettingjson';

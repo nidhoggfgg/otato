@@ -25,8 +25,6 @@ export class LAppView {
    */
   constructor() {
     this._programId = null;
-    this._back = null;
-    this._gear = null;
 
     // タッチ関係のイベント管理
     this._touchManager = new TouchManager();
@@ -84,12 +82,6 @@ export class LAppView {
     this._touchManager = null;
     this._deviceToScreen = null;
 
-    this._gear.release();
-    this._gear = null;
-
-    this._back.release();
-    this._back = null;
-
     gl.deleteProgram(this._programId);
     this._programId = null;
   }
@@ -99,13 +91,6 @@ export class LAppView {
    */
   public render(): void {
     gl.useProgram(this._programId);
-
-    if (this._back) {
-      this._back.render(this._programId);
-    }
-    if (this._gear) {
-      this._gear.render(this._programId);
-    }
 
     gl.flush();
 
@@ -125,45 +110,6 @@ export class LAppView {
 
     const textureManager = LAppDelegate.getInstance().getTextureManager();
     const resourcesPath = LAppDefine.ResourcesPath;
-
-    let imageName = '';
-
-    // 背景画像初期化
-    imageName = LAppDefine.BackImageName;
-
-    if(imageName != "" && imageName != null){ //如果指定了背景图片，就加载
-      // 由于异步，创建回调函数
-      const initBackGroundTexture = (textureInfo: TextureInfo): void => {
-        const x: number = width * 0.5;  //背景图片出现宽度的位置
-        const y: number = height * 0.5; //背景图片出现高度的位置
-
-        const fwidth = textureInfo.width * 2.0;   //背景图片的宽度
-        const fheight = height * 0.95;            //背景图片的高度
-        this._back = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);  //绘制背景图片
-      };
-
-      textureManager.createTextureFromPngFile(  //回掉函数
-        resourcesPath + imageName,
-        false,
-        initBackGroundTexture
-      );
-    }
-
-    // 歯車画像初期化
-    // imageName = LAppDefine.GearImageName;
-    // const initGearTexture = (textureInfo: TextureInfo): void => {
-    //   const x = width - textureInfo.width * 0.5;
-    //   const y = height - textureInfo.height * 0.5;
-    //   const fwidth = textureInfo.width;
-    //   const fheight = textureInfo.height;
-    //   this._gear = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);
-    // };
-
-    // textureManager.createTextureFromPngFile(
-    //   resourcesPath + imageName,
-    //   false,
-    //   initGearTexture
-    // );
 
     // シェーダーを作成
     if (this._programId == null) {
@@ -221,11 +167,6 @@ export class LAppView {
         LAppPal.printMessage(`[APP]touchesEnded x: ${x} y: ${y}`);
       }
       live2DManager.onTap(x, y);
-
-      // 歯車にタップしたか
-      if (this._gear.isHit(pointX, pointY)) {
-        live2DManager.nextScene();
-      }
     }
   }
 
@@ -270,8 +211,6 @@ export class LAppView {
   _deviceToScreen: CubismMatrix44; // デバイスからスクリーンへの行列
   _viewMatrix: CubismViewMatrix; // viewMatrix
   _programId: WebGLProgram; // シェーダID
-  _back: LAppSprite; // 背景画像
-  _gear: LAppSprite; // ギア画像
   _changeModel: boolean; // モデル切り替えフラグ
   _isClick: boolean; // クリック中
 }

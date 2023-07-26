@@ -7,10 +7,6 @@
 
 import { LogLevel } from './l2d-framework/live2dcubismframework';
 
-/**
- * Sample Appで使用する定数
- */
-
 // Canvas width and height pixel values, or dynamic screen size ('auto').
 export const CanvasSize: { width: number; height: number } | 'auto' = {
   width: 600,
@@ -35,14 +31,6 @@ export const ViewLogicalMaxTop = 2.0;
 // 相対パス
 export const ResourcesPath = '/l2d/';
 
-// モデルの後ろにある背景の画像ファイル
-export const BackImageName = '';
-
-// 歯車
-// export const GearImageName = 'icon_gear.png';
-
-// 終了ボタン
-export const PowerImageName = 'CloseNormal.png';
 
 // モデル定義---------------------------------------------
 // モデルを配置したディレクトリ名の配列
