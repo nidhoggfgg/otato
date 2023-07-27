@@ -7,6 +7,23 @@
 
 import { LogLevel } from './l2d-framework/live2dcubismframework';
 
+export function initDef(config: {
+  waifuPath: string,
+  models: string[],
+  useCache: boolean,
+  debug: boolean,
+}) {
+  let { waifuPath, models, useCache, debug } = config;
+  if (!waifuPath.endsWith("/")) {
+    waifuPath += '/';
+  }
+  ResourcesPath = waifuPath;
+  ModelDir = models;
+  ModelDirSize = models.length;
+  UseCache = useCache;
+  DebugLogEnable = debug;
+}
+
 // Canvas width and height pixel values, or dynamic screen size ('auto').
 export const CanvasSize: { width: number; height: number } | 'auto' = {
   width: 600,
@@ -28,17 +45,14 @@ export const ViewLogicalMaxRight = 2.0;
 export const ViewLogicalMaxBottom = -2.0;
 export const ViewLogicalMaxTop = 2.0;
 
-// 相対パス
-export const ResourcesPath = '/l2d/';
-
+export var ResourcesPath: string;
+export var UseCache: boolean;
 
 // モデル定義---------------------------------------------
 // モデルを配置したディレクトリ名の配列
 // ディレクトリ名とmodel3.jsonの名前を一致させておくこと
-export const ModelDir: string[] = [
-  'Cao'
-];
-export const ModelDirSize: number = ModelDir.length;
+export var ModelDir: string[];
+export var ModelDirSize: number;
 
 // 外部定義ファイル（json）と合わせる
 export const MotionGroupIdle = 'Idle'; // アイドリング
@@ -58,7 +72,7 @@ export const PriorityForce = 3;
 export const MOCConsistencyValidationEnable = true;
 
 // デバッグ用ログの表示オプション
-export const DebugLogEnable = true;
+export var DebugLogEnable: boolean;
 export const DebugTouchLogEnable = false;
 
 // Frameworkから出力するログのレベル設定

@@ -12,6 +12,12 @@ import * as LAppDefine from './lappdefine';
  * ブラウザロード後の処理
  */
 window.onload = (): void => {
+  LAppDefine.initDef({
+    "waifuPath": "/l2d",
+    "models": ["Cao"],
+    "useCache": true,
+    "debug": true,
+  });
   // create the application instance
   if (LAppDelegate.getInstance().initialize() == false) {
     return;

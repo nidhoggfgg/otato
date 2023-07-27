@@ -5,8 +5,6 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-// import 'whatwg-fetch';
-
 import { CubismDefaultParameterId } from './l2d-framework/cubismdefaultparameterid';
 import { CubismModelSettingJson } from './l2d-framework/cubismmodelsettingjson';
 import {
@@ -70,6 +68,35 @@ enum LoadStep {
   LoadTexture,
   WaitLoadTexture,
   CompleteSetup
+}
+
+// don't use .then :), use await is good
+async function fetchOrCache(url: string): Promise<ArrayBuffer> {
+  const fetchIt = async (): Promise<ArrayBuffer> => {
+    const response = await fetch(url);
+    return await response.arrayBuffer();
+  }
+  if (LAppDefine.UseCache) {
+    const value: ArrayBuffer | null = await localForage.getItem(url);
+    if (value === null) {
+      if (LAppDefine.DebugLogEnable) {
+        LAppPal.printMessage(`[APP]fetch : ${url}`);
+      }
+      const arrayBuffer = await fetchIt();
+      await localForage.setItem(url, arrayBuffer);
+      if (LAppDefine.DebugLogEnable) {
+        LAppPal.printMessage(`[APP]stored : ${url}`);
+      }
+      return await Promise.resolve(arrayBuffer);
+    } else {
+      if (LAppDefine.DebugLogEnable) {
+        LAppPal.printMessage(`[APP]use cache : ${url}`);
+      }
+      return await Promise.resolve(value);
+    }
+  } else {
+    return fetchIt();
+  }
 }
 
 /**
@@ -202,8 +229,7 @@ export class LAppModel extends CubismUserModel {
       if (this._modelSetting.getUserDataFile() != '') {
         const userDataFile = this._modelSetting.getUserDataFile();
 
-        fetch(`${this._modelHomeDir}${userDataFile}`)
-          .then(response => response.arrayBuffer())
+        fetchOrCache(`${this._modelHomeDir}${userDataFile}`)
           .then(arrayBuffer => {
             this.loadUserData(arrayBuffer, arrayBuffer.byteLength);
 
@@ -274,8 +300,7 @@ export class LAppModel extends CubismUserModel {
       if (this._modelSetting.getPoseFileName() != '') {
         const poseFileName = this._modelSetting.getPoseFileName();
 
-        fetch(`${this._modelHomeDir}${poseFileName}`)
-          .then(response => response.arrayBuffer())
+        fetchOrCache(`${this._modelHomeDir}${poseFileName}`)
           .then(arrayBuffer => {
             this.loadPose(arrayBuffer, arrayBuffer.byteLength);
 
@@ -298,8 +323,7 @@ export class LAppModel extends CubismUserModel {
       if (this._modelSetting.getPhysicsFileName() != '') {
         const physicsFileName = this._modelSetting.getPhysicsFileName();
 
-        fetch(`${this._modelHomeDir}${physicsFileName}`)
-          .then(response => response.arrayBuffer())
+        fetchOrCache(`${this._modelHomeDir}${physicsFileName}`)
           .then(arrayBuffer => {
             this.loadPhysics(arrayBuffer, arrayBuffer.byteLength);
 
@@ -327,8 +351,7 @@ export class LAppModel extends CubismUserModel {
           const expressionFileName =
             this._modelSetting.getExpressionFileName(i);
 
-          fetch(`${this._modelHomeDir}${expressionFileName}`)
-            .then(response => response.arrayBuffer())
+          fetchOrCache(`${this._modelHomeDir}${expressionFileName}`)
             .then(arrayBuffer => {
               const motion: ACubismMotion = this.loadExpression(
                 arrayBuffer,
@@ -367,30 +390,38 @@ export class LAppModel extends CubismUserModel {
     if (this._modelSetting.getModelFileName() != '') {
       const modelFileName = this._modelSetting.getModelFileName();
       var a = this;
-      localForage.getItem(modelFileName).then(function (value) {
-        if (value === null) {
-          fetch(`${a._modelHomeDir}${modelFileName}`)
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => {
-              localForage.setItem(modelFileName, arrayBuffer).then(function (_v) {
-                LAppPal.printMessage("success store " + modelFileName);
-              }).catch(function (err) {
-                LAppPal.printMessage(err);
-              });
-              a.loadModel(arrayBuffer, a._mocConsistency);
-              a._state = LoadStep.LoadExpression;
-              loadCubismExpression();
-            });
-        } else {
-          a.loadModel(value as ArrayBuffer, a._mocConsistency);
+      fetchOrCache(`${a._modelHomeDir}${modelFileName}`)
+        .then(arrayBuffer => {
+          a.loadModel(arrayBuffer, a._mocConsistency);
           a._state = LoadStep.LoadExpression;
           loadCubismExpression();
-          LAppPal.printMessage("load model from client storage!")
-        }
-        a._state = LoadStep.WaitLoadModel;
-      }).catch(function (err) {
-        LAppPal.printMessage(err);
-      });
+        }).catch(err => {
+          LAppPal.printMessage(err);
+        });
+      // localForage.getItem(modelFileName).then(function (value) {
+      //   if (value === null) {
+      //     fetch(`${a._modelHomeDir}${modelFileName}`)
+      //       .then(response => response.arrayBuffer())
+      //       .then(arrayBuffer => {
+      //         localForage.setItem(modelFileName, arrayBuffer).then(function (_v) {
+      //           LAppPal.printMessage("success store " + modelFileName);
+      //         }).catch(function (err) {
+      //           LAppPal.printMessage(err);
+      //         });
+      //         a.loadModel(arrayBuffer, a._mocConsistency);
+      //         a._state = LoadStep.LoadExpression;
+      //         loadCubismExpression();
+      //       });
+      //   } else {
+      //     a.loadModel(value as ArrayBuffer, a._mocConsistency);
+      //     a._state = LoadStep.LoadExpression;
+      //     loadCubismExpression();
+      //     LAppPal.printMessage("load model from client storage!")
+      //   }
+      //   a._state = LoadStep.WaitLoadModel;
+      // }).catch(function (err) {
+      //   LAppPal.printMessage(err);
+      // });
     } else {
       LAppPal.printMessage('Model data does not exist.');
     }
@@ -580,8 +611,7 @@ export class LAppModel extends CubismUserModel {
     let autoDelete = false;
 
     if (motion == null) {
-      fetch(`${this._modelHomeDir}${motionFileName}`)
-        .then(response => response.arrayBuffer())
+      fetchOrCache(`${this._modelHomeDir}${motionFileName}`)
         .then(arrayBuffer => {
           motion = this.loadMotion(
             arrayBuffer,
@@ -746,8 +776,7 @@ export class LAppModel extends CubismUserModel {
         );
       }
 
-      fetch(`${this._modelHomeDir}${motionFileName}`)
-        .then(response => response.arrayBuffer())
+      fetchOrCache(`${this._modelHomeDir}${motionFileName}`)
         .then(arrayBuffer => {
           const tmpMotion: CubismMotion = this.loadMotion(
             arrayBuffer,
@@ -842,8 +871,7 @@ export class LAppModel extends CubismUserModel {
     if (this._modelSetting.getModelFileName() != '') {
       const modelFileName = this._modelSetting.getModelFileName();
 
-      const response = await fetch(`${this._modelHomeDir}${modelFileName}`);
-      const arrayBuffer = await response.arrayBuffer();
+      const arrayBuffer = await fetchOrCache(`${this._modelHomeDir}${modelFileName}`);
 
       this._consistency = CubismMoc.hasMocConsistency(arrayBuffer);
 
