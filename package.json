@@ -13,6 +13,6 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "neowaifu": "^1.2.0"
+    "neowaifu": "^1.3.0"
   }
 }
