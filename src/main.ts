@@ -1,4 +1,11 @@
-import './style.css'
-import '/l2d/main'
+import { initWaifu } from 'neowaifu';
+import './style.css';
 
-// document.querySelector('#live2d').innerHTML = ``
+initWaifu({
+    "waifuPath": "https://fastly.jsdelivr.net/gh/nidhoggfgg/live2d-model@latest/",
+    "models": ["Cao"],
+    "size": { "width": 300, "height": 400 },
+    "renderRatio": 1.0,
+    "useCache": true,
+    "debug": true,
+});

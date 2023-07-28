@@ -13,6 +13,6 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "localforage": "^1.10.0"
+    "neowaifu": "^1.2.0"
   }
 }

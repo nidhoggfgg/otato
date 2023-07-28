@@ -169,6 +169,13 @@ nanoid@^3.3.6:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.6.tgz#443380c856d6e9f9824267d960b4236ad583ea4c"
   integrity sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==
 
+neowaifu@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/neowaifu/-/neowaifu-1.2.0.tgz#31c0175f18d9811b794396ba71da1f0e928b6c07"
+  integrity sha512-/g65GOQmuLNpJ3a/8ozUeh7K3ZFuf5nDbXbsyUP/N8rLo4k78bHFq97x4f5Fj7djfYN935DB0oeIpOE5g9D5oA==
+  dependencies:
+    localforage "^1.10.0"
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
@@ -210,8 +217,3 @@ vite@^4.4.5:
     rollup "^3.25.2"
   optionalDependencies:
     fsevents "~2.3.2"
-
-whatwg-fetch@^3.6.2:
-  version "3.6.17"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.17.tgz#009bbbfc122b227b74ba1ff31536b3a1a0e0e212"
-  integrity sha512-c4ghIvG6th0eudYwKZY5keb81wtFz9/WeAHAoy8+r18kcWlitUIrmGFQ2rWEl4UCKUilD3zCLHOIPheHx5ypRQ==
