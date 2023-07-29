@@ -46,4 +46,4 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);return}this._clippingManag
   width: ${r}px;
   height: ${t}px;
 	position: relative;
-}`}function Bl(r){const t={corejs:"https://fastly.jsdelivr.net/gh/nidhoggfgg/live2d-model@latest/live2dcubismcore.min.js",size:{width:300,height:400},renderRatio:1,useCache:!0,debug:!1};Object.assign(t,r),xl(t)}Bl({waifuPath:"https://fastly.jsdelivr.net/gh/nidhoggfgg/live2d-model@latest/",models:["Cao"],size:{width:300,height:400},renderRatio:1,useCache:!0,debug:!0});
+}`}function bl(r){const t={corejs:"https://fastly.jsdelivr.net/gh/nidhoggfgg/live2d-model@latest/live2dcubismcore.min.js",size:{width:300,height:400},renderRatio:1,useCache:!0,debug:!1};Object.assign(t,r),xl(t)}export{bl as i};
